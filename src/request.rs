@@ -5,6 +5,6 @@ pub trait Request {
     fn new() -> Self
     where
         Self: Sized;
-    fn get(&mut self) -> Error;
-    fn post(&mut self, body: String) -> Error;
+    fn get(&mut self) -> Result<(), Error>;
+    fn post(&mut self, body: String) -> Result<(), Error>;
 }

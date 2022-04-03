@@ -3,9 +3,13 @@ use snafu::*;
 #[derive(Debug, Snafu)]
 #[non_exhaustive]
 pub enum Error {
-    #[snafu(display("Connecting to Wss Err {}", details))]
+    #[snafu(display("Send get request err {}", details))]
     #[non_exhaustive]
-    ReuqestErr { details: String, status_code: i32 },
+    GetRequestErr { details: String, status_code: i32 },
+
+    #[snafu(display("Send post request err {}", details))]
+    #[non_exhaustive]
+    PostRequestErr { details: String, status_code: i32 },
 }
 
 // impl From<TungErr> for Error {
