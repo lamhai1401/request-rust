@@ -1,6 +1,6 @@
 use super::{
     errors::Error,
-    rq::{ReqResult, Request},
+    rq::{ReqResult, Request, Resp},
 };
 use async_trait::async_trait;
 use reqwest::{header, Client, StatusCode};
@@ -31,7 +31,7 @@ impl Request for Api {
         //     uri.to_owned()
         // );
         let resp = self.client.get(uri.to_owned()).send().await?.text().await?;
-        match serde_json::from_str::<HashMap<String, String>>(resp.as_str()) {
+        match serde_json::from_str::<Resp>(resp.as_str()) {
             Ok(data) => Ok(data),
             Err(er) => Err(Error::JsonErr {
                 details: er.to_string(),
