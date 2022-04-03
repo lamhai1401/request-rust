@@ -1,0 +1,23 @@
+[package]
+name = "request-rust"
+version = "0.1.0"
+edition = "2021"
+authors = ["LamHai <lamhai141@gmail.com >"]
+license = "MIT"
+homepage = "https://github.com/lamhai1401/request-rustt"
+repository = "https://github.com/lamhai1401/request-rustt"
+documentation = "https://github.com/lamhai1401/request-rustt"
+description = "Client Async Request"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = { version = "1.17.0", features = ["full"] }
+log = "0.4"
+url = "2.2.2"
+snafu = { version = "0.7.0"}
+
+[lib]
+name = "requestrust"
+path = "src/lib.rs"
