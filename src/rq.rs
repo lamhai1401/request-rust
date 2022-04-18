@@ -1,8 +1,8 @@
 use super::errors::Error;
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
 use std::collections::HashMap;
+
 pub type ReqResult<T> = Result<T, Error>;
 
 #[async_trait]
@@ -15,19 +15,16 @@ pub trait Request {
     where
         Self: Sized;
     async fn get(&mut self, path: String) -> ReqResult<Self::Output>;
-    // async fn get<'de, T>(&mut self, path: &'de String) -> ReqResult<T>
-    // where
-    //     T: Deserialize<'de>;
 
     async fn parsing<'de, T>(resp: &'de String) -> ReqResult<T>
     where
         T: Deserialize<'de>;
-    // async fn post<T>(
-    //     &mut self,
-    //     url: String,
-    //     header: HashMap<String, String>,
-    //     body: HashMap<String, Value>,
-    // ) -> ReqResult<T>;
+    async fn post<T>(
+        &mut self,
+        url: String,
+        header: &'static HashMap<String, String>,
+        body: String,
+    ) -> ReqResult<Self::Output>;
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
