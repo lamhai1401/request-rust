@@ -14,7 +14,8 @@ pub struct Api {
 
 #[async_trait]
 impl Request for Api {
-    const PATH: &'static str = "/api";
+    // const PATH: &'static str = "/api";
+    // const URL: &'static str = "http://localhost:4000";
     type Output = String;
     fn new(url: String) -> Self {
         Api {
@@ -36,12 +37,7 @@ impl Request for Api {
     }
 
     async fn get(&mut self, path: String) -> ReqResult<Self::Output> {
-        let url = format!(
-            "{}{}{}",
-            self.url.clone(),
-            Self::PATH.clone(),
-            path.to_owned()
-        );
+        let url = format!("{}{}", self.url.clone(), path.to_owned());
 
         let resp = self.client.get(url.to_owned()).send().await?.text().await?;
         Ok(resp)
@@ -53,12 +49,7 @@ impl Request for Api {
         header: &'static HashMap<String, String>,
         body: String,
     ) -> ReqResult<Self::Output> {
-        let url = format!(
-            "{}{}{}",
-            self.url.clone(),
-            Self::PATH.clone(),
-            url.to_owned()
-        );
+        let url = format!("{}{}", self.url.clone(), url.to_owned());
 
         let mut headers = HeaderMap::new();
         headers.insert("Content-type", "application/json".parse().unwrap());

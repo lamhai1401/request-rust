@@ -1,6 +1,6 @@
 use super::errors::Error;
 use async_trait::async_trait;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use std::collections::HashMap;
 
 pub type ReqResult<T> = Result<T, Error>;
@@ -8,9 +8,8 @@ pub type ReqResult<T> = Result<T, Error>;
 #[async_trait]
 pub trait Request {
     type Output;
-    const URL: &'static str = "http://localhost:4000";
-    const PATH: &'static str;
-    // type Output;
+    // const URL: &'static str;
+    // const PATH: &'static str;
     fn new(url: String) -> Self
     where
         Self: Sized;
@@ -25,11 +24,4 @@ pub trait Request {
         header: &'static HashMap<String, String>,
         body: String,
     ) -> ReqResult<Self::Output>;
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Resp {
-    #[serde(alias = "origin")]
-    #[serde(rename = "origin")]
-    origin: String,
 }
