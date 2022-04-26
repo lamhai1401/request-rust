@@ -16,7 +16,7 @@ pub struct Resp {
 //     }
 // }
 
-#[actix_rt::test]
+#[tokio::test]
 async fn test_get_api() -> Result<(), Box<dyn std::error::Error>> {
     let url = "https://httpbin.org/ip".to_string();
     let mut api: Api = Request::new(url.clone());
