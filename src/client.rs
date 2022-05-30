@@ -3,9 +3,10 @@ use super::{
     rq::{ReqResult, Request},
 };
 use async_trait::async_trait;
-use reqwest::{header::HeaderMap, Client};
+use reqwest::{header::HeaderMap, Client, ClientBuilder};
 use serde::Deserialize;
 use std::collections::HashMap;
+use std::time::Duration;
 
 pub struct Api {
     url: String,
@@ -18,9 +19,10 @@ impl Request for Api {
     // const URL: &'static str = "http://localhost:4000";
     type Output = String;
     fn new(url: String) -> Self {
+        let timeout = Duration::new(5, 0);
         Api {
             url,
-            client: Client::new(),
+            client: ClientBuilder::new().timeout(timeout).build().unwrap(),
         }
     }
 
